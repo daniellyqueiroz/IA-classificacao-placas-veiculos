@@ -6,7 +6,7 @@ import java.io.PrintWriter;
 
 public class Main {
 
-	private static final String diretorio = "/Users/air/Documents/workspace/IA-classificacao-placas-veiculos/imagem";
+	private static final String diretorio = "/Users/air/Documents/workspace/IA-classificacao-placas-veiculos/hist.arff";
 	
 	public static String lerArquivo(){
 		File entrada = new File(diretorio);
@@ -17,25 +17,29 @@ public class Main {
 		
 		for (int j = listaImagem.length; i < j; i++) {
 			File arquivos = listaImagem[i];
-			//System.out.println(arquivos.getName());
 			 temporaria+= arquivos.getName() +"\n";
+			 
 			
 		}
 		return temporaria;
 	}
 	
-	public static void escreveArquivo() throws IOException{
-		File arquivo = new File("arquivo.txt");
+	public static void escreveArquivo(String arff) throws IOException{
+		File arquivo = new File("classificacaoDePlacas-0-455.arff");
 		FileWriter salva = new FileWriter(arquivo);
         PrintWriter escreve = new PrintWriter(salva);
-        escreve.println(lerArquivo());
+        
+        escreve.println(arff);
         escreve.close();
         salva.close();
 	}
 	public static void main(String[] args) throws IOException {
+
 		
-		lerArquivo();
-		escreveArquivo();
+		escreveArquivo(ARFF.gravaARFF());
+		//System.out.print(ARFF.verificaPlaca(ARFF.lerArquivo(diretorio)));
+		
+		
 
 
 	}
