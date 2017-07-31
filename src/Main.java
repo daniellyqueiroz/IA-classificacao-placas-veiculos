@@ -6,7 +6,7 @@ import java.io.PrintWriter;
 
 public class Main {
 
-	private static final String diretorio = "/Users/air/Documents/workspace/IA-classificacao-placas-veiculos/hist.arff";
+	private static final String diretorio = "/Users/air/Documents/workspace/IA-classificacao-placas-veiculos/imagem";
 	
 	public static String lerArquivo(){
 		File entrada = new File(diretorio);

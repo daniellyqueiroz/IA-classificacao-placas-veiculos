@@ -12,79 +12,45 @@ import javax.imageio.ImageIO;
 
 public class ARFF {
 	
-	private static String diretorio = "/Users/air/Documents/workspace/IA-classificacao-placas-veiculos/hist.arff";
+	private static String diretorio = "/Users/air/Documents/workspace/IA-classificacao-placas-veiculos/imagem";
 	
-	/*public static String gravaARFF() throws IOException{
-		//ArrayList<String> teste = new ArrayList<String>();
-		String teste = "";
-		ArrayList<Imagem> listaImagem= new ArrayList<Imagem>();
-		HashMap <String, Integer> aux= new HashMap <String, Integer>();
-		String arff = "% Classificacao de Placas Veiculares\n" +
-					  "% Inteligencia Artificial -2017.01\n" +
-					  "% Danielly Queiroz\n"+
-					  "% Tamires Pereira\n" +
-					  "% Relabeled values in attribute 'class'\n"+
-					  "% From: 0						To: placa_nao\n"+
-					  "% From: 1						To: placa_sim\n"+
-					  "%\n"+
-					  "@ relation classificacaoDePlacasVeiculares\n";
-					  for (int i = 0; i <= 255; i++) {
-						  arff += "@ attribute 'cor-"+i+"' numeric\n";
-					  }
-		
-					 arff+= "@ attribute 'class' {placa_nao, placa_sim}\n"+
-					  "@ data\n";
-					 
-					 listaImagem = gerarImagem(diretorio, lerArquivo(diretorio));
-					 
-					 for (int i = 0; i < listaImagem.size(); i++) {
-						teste += ( gravaHistograma(getHistograma(listaImagem.get(i))))+ "\n"; 	
-					}
-					 System.out.println(teste);
-					 System.out.println(gravaHistograma(aux));
-					 
-					  arff+= teste;
-		return arff;
-	}*/
+	
 	
 	
 	public static String gravaARFF() throws IOException{
-		//ArrayList<String> teste = new ArrayList<String>();
-		String teste = "";
-		ArrayList<String> oi = new ArrayList<String>();
+		
+		String resultadoHistograma = "";
+		ArrayList<String> classe = new ArrayList<String>();
 		ArrayList<Imagem> listaImagem= new ArrayList<Imagem>();
-		HashMap <String, Integer> aux= new HashMap <String, Integer>();
+		
 		String arff = "% Classificacao de Placas Veiculares\n" +
 					  "% Inteligencia Artificial -2017.01\n" +
 					  "% Danielly Queiroz\n"+
 					  "% Tamires Pereira\n" +
 					  "% Relabeled values in attribute 'class'\n"+
-					  "% From: 0						To: placa_nao\n"+
-					  "% From: 1						To: placa_sim\n"+
+					  "% From: placa_nao				To: 0\n"+
+					  "% From: placa_sim				To: 1\n"+
 					  "%\n"+
-					  "@ relation classificacaoDePlacasVeiculares\n";
+					  "@ relation classificacaoDePlacasVeiculares\n"+
+					  "@ attribute 'class' {0, 1}\n";
 					  for (int i = 0; i <= 255; i++) {
 						  arff += "@ attribute 'cor-"+i+"' numeric\n";
 					  }
 		
-					 arff+= "@ attribute 'class' {placa_nao, placa_sim}\n"+
-					  "@ data\n";
+					 arff+="@ data\n";
 					 
 					 listaImagem = gerarImagem(diretorio, lerArquivo(diretorio));
 					 
 					 
 					 
 					 for(int i= 0; i < listaImagem.size(); i++){
-						 oi.add(verificaPlaca(listaImagem.get(i).getNome()));
-						 teste += (gravaHistograma(getHistograma(listaImagem.get(i)))+oi.get(i) + "\n");
+						 classe.add(verificaPlaca(listaImagem.get(i).getNome()));
+						 resultadoHistograma += classe.get(i)+"#"+(gravaHistograma(getHistograma(listaImagem.get(i))) + "\n");
 					 }
 						
 						 
-					
-					// System.out.println(teste);
-					 //System.out.println(gravaHistograma(aux));
 					 
-					  arff+= teste;
+					  arff+= resultadoHistograma;
 		return arff;
 	}
 	
@@ -117,7 +83,8 @@ public class ARFF {
 		for(String k : hist.keySet()){
 			file+= k + ":" + hist.getOrDefault(k, 0) + ",";
 		}
-		return file + "\n";	
+		
+		return file ;	
 	}
 	//Retorna Array de Arquivos
 	public static ArrayList<String> lerArquivo(String diretorio){
@@ -176,9 +143,7 @@ public class ARFF {
 			listaImg.add(new Imagem(diretorio,nomeImagem));
 		}
 		
-		//for (int i = 0; i < listaImg.size(); i++) {
-			//teste.add(listaImg.get(i).imprime());
-		//}
+		
 		
 		return listaImg;
 	}
