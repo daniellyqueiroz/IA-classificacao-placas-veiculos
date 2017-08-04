@@ -18,31 +18,44 @@ public class KNN{
 		try {
 			String line = reader.readLine(); 
 						
-			while((line = reader.readLine()) != null && !(line.startsWith("%") && !(line.startsWith("@")))) {
-				String[] tokens = line.split(",");
-				int pos = line.indexOf(":");
-				Imagem imagem = new Imagem();
-				imagem.classe = Integer.parseInt(tokens[0]);
-				//System.out.println(imagem.classe);
-				imagem.dist = new double[tokens.length - 1];
-					for(int i = 1; i < tokens.length; i++) {
-						while(tokens[i] != line.substring(0,pos)){
-							imagem.dist[i-1] = Integer.parseInt(tokens[i]);	
-							//System.out.println(imagem.classe);
-						}
+			while((line = reader.readLine()) != null) {
+				if(!(line.startsWith("%"))){
+					if(!(line.startsWith("@"))){
 						
+						String[] tokens = line.split(",");
+						
+						//String[] delimitador = line.split(":");
+																		
+						Imagem imagem = new Imagem();
+						imagem.classe = Integer.parseInt(tokens[0]);
+						//Classes OK
+						System.out.println(tokens[0]);
+						int end = line.indexOf(":");
+				
+						imagem.dist = new double[tokens.length - 1];
+						//Quantidade de atributos OK
+						System.out.println(tokens.length);
+						//Problema: desconsiderar as cores
+							for(int i = 1; i < tokens.length; i++) {
+								//if(){
+										imagem.dist[i-1] = Double.parseDouble(tokens[i]);
+																																																		
+								//}		
+								
+							}
+							imagens.add(imagem);
+						}
+				
+					}	
+				
 				}
-				
-						imagens.add(imagem);
-				
-			}	
-				
-		} finally {
+			} finally {
 			reader.close();
 		}
 		
 		return imagens;
 	}
+	
 	
 	public static double distEuclidiana(double x[], double y[]){
 		double soma = 0;
@@ -81,7 +94,7 @@ public class KNN{
 			dist = distEuclidiana(lista.dist, ent);
 			if(dist < melhorDist){
 				melhorDist = dist;
-				classe = lista.classe;				
+				classe = lista.classe;			
 
 			}
 		}
@@ -103,9 +116,12 @@ public class KNN{
 		for(Imagem imagens:conjunto) {
 			if(classificador(conjunto, imagens.dist) == imagens.classe)
 				classeCerta++;
+			//System.out.println(conjunto);
+			
 							
 		}
-		System.out.println(classeCerta);
+		//System.out.println(classeCerta);
+		
 		
 	}
 }
