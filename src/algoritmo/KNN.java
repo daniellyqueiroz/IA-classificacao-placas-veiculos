@@ -14,20 +14,20 @@ public class KNN{
 	private static List<Imagem> LeArq(String arq) throws IOException {
 		List<Imagem> imagens = new ArrayList<Imagem>();
 		
-		BufferedReader reader = new BufferedReader(new FileReader(arq));		
+		BufferedReader leitor = new BufferedReader(new FileReader(arq));		
 		try {
-			String line = reader.readLine(); 
+			String linha = leitor.readLine(); 
 						
-			while((line = reader.readLine()) != null) {
-				if(!(line.startsWith("%"))){
-					if(!(line.startsWith("@"))){
-						if(!line.trim().equals("")){
-							String[] tokens = line.split(",");
+			while((linha = leitor.readLine()) != null) {
+				if(!(linha.startsWith("%"))){
+					if(!(linha.startsWith("@"))){
+						if(!linha.trim().equals("")){
+							String[] tokens = linha.split(",");
 							
 							Imagem imagem = new Imagem();
 							imagem.classe = Integer.parseInt(tokens[0]);
 							//Classes OK
-							System.out.println(tokens[0]);
+							//System.out.println(tokens[0]);
 											
 							imagem.dist = new double[tokens.length - 1];
 							//Quantidade de atributos OK
@@ -47,7 +47,7 @@ public class KNN{
 				
 				}
 			} finally {
-			reader.close();
+			leitor.close();
 		}
 		
 		return imagens;
@@ -77,22 +77,25 @@ public class KNN{
 	    for (int i = 0; i < x.length; i++) {
 	    	soma1 += (x[i] * y[i]);
 	    	soma2 += (x[i] * y[i]) * (x[i] * y[i]);
+	    	System.out.println(x[i] + " - " + y[i]);
 	    } 
 	   
 	    
 	    return Math.abs(soma1/soma2);
 	  } 
 	
-	public static double classificador(List<Imagem> imagens, double[] ent){
+	public static double menorDist(List<Imagem> imagens, double[] ent){
 		int classe = 0;
 		double melhorDist = Integer.MAX_VALUE;
-		double dist;
+		double dist = 0;
 		try{
 			for(Imagem lista: imagens){
 				dist = distCosseno(lista.dist, ent);
+				System.out.println(dist + " # Classe: " + lista.classe);//distancias certas
 				if(dist < melhorDist){
 					melhorDist = dist;
-					classe = lista.classe;			
+					classe = lista.classe;
+					//System.out.println(classe + " dist: " + lista.dist);
 
 				}
 			}
@@ -103,28 +106,31 @@ public class KNN{
 		return melhorDist;
 	}
 	
+	public static void classificacao() throws IOException{
+		List<Imagem> conjunto = LeArq("classificacaoDePlacas-0-455.arff");
+		List<Imagem> conjunto2 = LeArq("classificacaoDePlacas-0-455-2.arff");
+		
+		int qtdClasseCerta = 0;
+		
+	
+		for(Imagem imagens:conjunto2) {
+			if(menorDist(conjunto, imagens.dist) == imagens.classe){
+				qtdClasseCerta++;
+			}
+							
+							
+		}
+		System.out.println("Qtd classes certas: " + qtdClasseCerta);
+	}
+	
 	static class Imagem{
 		int classe;
 		double dist[];
 	}
 		
 	
-	public static void main(String[] argv) throws IOException  {
-		List<Imagem> conjunto = LeArq("classificacaoDePlacas-0-455.arff");
-		
-		int classeCerta = 0;
-		
-	
-		for(Imagem imagens:conjunto) {
-			if(classificador(conjunto, imagens.dist) == imagens.classe){
-				classeCerta++;
-				System.out.println(imagens.classe);
-			}
-							
-							
-		}
-		System.out.println(classeCerta);
-		
+	public static void main(String[] argv) throws IOException{
+		classificacao();		
 		
 	}
 }
