@@ -12,7 +12,7 @@ import javax.imageio.ImageIO;
 
 public class ARFF {
 	
-	private static String diretorio = "/Users/air/Documents/workspace/IA-classificacao-placas-veiculos/imagem";
+	private static String diretorio = "/Users/ASUS/git/IA-classificacao-placas-veiculos/imagem";
 	
 	
 	
@@ -45,7 +45,7 @@ public class ARFF {
 					 
 					 for(int i= 0; i < listaImagem.size(); i++){
 						 classe.add(verificaPlaca(listaImagem.get(i).getNome()));
-						 resultadoHistograma += classe.get(i)+"#"+(gravaHistograma(getHistograma(listaImagem.get(i))) + "\n");
+						 resultadoHistograma += classe.get(i)+(gravaHistograma(getHistograma(listaImagem.get(i))) + "\n");
 					 }
 						
 						 
@@ -81,9 +81,8 @@ public class ARFF {
 		String file ="";
 		
 		for(String k : hist.keySet()){
-			file+= k + ":" + hist.getOrDefault(k, 0) + ",";
+			file+=  "," + hist.getOrDefault(k, 0);
 		}
-		
 		return file ;	
 	}
 	//Retorna Array de Arquivos

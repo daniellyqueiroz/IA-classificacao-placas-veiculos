@@ -21,29 +21,26 @@ public class KNN{
 			while((line = reader.readLine()) != null) {
 				if(!(line.startsWith("%"))){
 					if(!(line.startsWith("@"))){
-						
-						String[] tokens = line.split(",");
-						
-						//String[] delimitador = line.split(":");
-																		
-						Imagem imagem = new Imagem();
-						imagem.classe = Integer.parseInt(tokens[0]);
-						//Classes OK
-						System.out.println(tokens[0]);
-						int end = line.indexOf(":");
-				
-						imagem.dist = new double[tokens.length - 1];
-						//Quantidade de atributos OK
-						System.out.println(tokens.length);
-						//Problema: desconsiderar as cores
+						if(!line.trim().equals("")){
+							String[] tokens = line.split(",");
+							
+							Imagem imagem = new Imagem();
+							imagem.classe = Integer.parseInt(tokens[0]);
+							//Classes OK
+							System.out.println(tokens[0]);
+											
+							imagem.dist = new double[tokens.length - 1];
+							//Quantidade de atributos OK
+							//System.out.println(tokens.length);
+																			
 							for(int i = 1; i < tokens.length; i++) {
-								//if(){
-										imagem.dist[i-1] = Double.parseDouble(tokens[i]);
-																																																		
-								//}		
-								
+								imagem.dist[i-1] = Double.parseDouble(tokens[i]);
+								//System.out.println(tokens[i]);
 							}
-							imagens.add(imagem);
+							
+								imagens.add(imagem);
+						}
+						
 						}
 				
 					}	
@@ -90,14 +87,19 @@ public class KNN{
 		int classe = 0;
 		double melhorDist = Integer.MAX_VALUE;
 		double dist;
-		for(Imagem lista: imagens){
-			dist = distEuclidiana(lista.dist, ent);
-			if(dist < melhorDist){
-				melhorDist = dist;
-				classe = lista.classe;			
+		try{
+			for(Imagem lista: imagens){
+				dist = distCosseno(lista.dist, ent);
+				if(dist < melhorDist){
+					melhorDist = dist;
+					classe = lista.classe;			
 
+				}
 			}
-		}
+		}catch (IndexOutOfBoundsException e) {
+	           return 0;
+	       }
+		
 		return melhorDist;
 	}
 	
@@ -114,13 +116,14 @@ public class KNN{
 		
 	
 		for(Imagem imagens:conjunto) {
-			if(classificador(conjunto, imagens.dist) == imagens.classe)
+			if(classificador(conjunto, imagens.dist) == imagens.classe){
 				classeCerta++;
-			//System.out.println(conjunto);
-			
+				System.out.println(imagens.classe);
+			}
+							
 							
 		}
-		//System.out.println(classeCerta);
+		System.out.println(classeCerta);
 		
 		
 	}
