@@ -103,7 +103,7 @@ public class KNN{
 	           return 0;
 	       }
 		
-		return melhorDist;
+		return classe;
 	}
 	
 	public static void classificacao() throws IOException{
@@ -113,7 +113,7 @@ public class KNN{
 		int qtdClasseCerta = 0;
 		
 	
-		for(Imagem imagens:conjunto2) {
+		for(Imagem imagens:conjunto) {
 			if(menorDist(conjunto, imagens.dist) == imagens.classe){
 				qtdClasseCerta++;
 			}

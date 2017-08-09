@@ -3,6 +3,7 @@ import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 
 import javax.imageio.ImageIO;
 
@@ -12,7 +13,7 @@ import javax.imageio.ImageIO;
 
 public class ARFF {
 	
-	private static String diretorio = "/Users/ASUS/git/IA-classificacao-placas-veiculos/imagem";
+	private static String diretorio = "/Users/air/Documents/workspace/IA-classificacao-placas-veiculos/imagem";
 	
 	
 	
@@ -34,7 +35,13 @@ public class ARFF {
 					  "@ relation classificacaoDePlacasVeiculares\n"+
 					  "@ attribute 'class' {0, 1}\n";
 					  for (int i = 0; i <= 255; i++) {
-						  arff += "@ attribute 'cor-"+i+"' numeric\n";
+						  arff += "@ attribute 'R-"+i+"' numeric\n";
+					  }
+					  for (int i = 0; i <= 255; i++) {
+						  arff += "@ attribute 'G-"+i+"' numeric\n";
+					  }
+					  for (int i = 0; i <= 255; i++) {
+						  arff += "@ attribute 'B-"+i+"' numeric\n";
 					  }
 		
 					 arff+="@ data\n";
@@ -55,34 +62,58 @@ public class ARFF {
 	}
 	
 	//Histograma
-	public static HashMap<String, Integer>  getHistograma(Imagem img) throws IOException {
+	public static List<HashMap<Integer, Integer>>  getHistograma(Imagem img) throws IOException {
 		System.out.println(img.imprime());
-		BufferedImage imagem=ImageIO.read(new File(img.imprime()));  
-		HashMap<String, Integer> hist = new HashMap<String, Integer>();
+		BufferedImage imagem=ImageIO.read(new File(img.imprime()));
+		List<HashMap<Integer, Integer>> ret = new ArrayList<>(3);
+		HashMap<Integer, Integer> histR = new HashMap<Integer, Integer>();
+		HashMap<Integer, Integer> histG = new HashMap<Integer, Integer>();
+		HashMap<Integer, Integer> histB = new HashMap<Integer, Integer>();
+		
 		int valor;
-		String chave;
+		int chave;
 		int[] array = new int[3];
-		int[] pixel;
+		int[] canal;
+		
+		for(int i=0;i<256;i++){
+			histR.put(i, 0);
+			histG.put(i, 0);
+			histB.put(i, 0);
+		}
 		
 		for (int y = 0; y < imagem.getHeight(); y++) {
 		for (int x = 0; x < imagem.getWidth(); x++) {
-		    pixel = imagem.getRaster().getPixel(x, y, array);
-		    chave = pixel[0] +"-" + pixel[1] + "-" + pixel[2] ;
-		    valor = hist.getOrDefault(chave, 0);
-		    hist.put(chave, ++valor);
+		    canal = imagem.getRaster().getPixel(x, y, array);
+		    chave = canal[0];
+		    valor = histR.get(chave);
+		    histR.put(chave, ++valor);
+		    
+		    chave = canal[1];
+		    valor = histR.get(chave);
+		    histG.put(chave, ++valor);
+		    
+		    chave = canal[2];
+		    valor = histR.get(chave);
+		    histB.put(chave, ++valor);
 		    }
 		}
-		
-	 return hist;
+		ret.add(histR);
+		ret.add(histG);
+		ret.add(histB);
+		return ret;
 	}
 	// Imprime histogramN
-	public static String gravaHistograma(HashMap<String, Integer> hist){
+	public static String gravaHistograma(List<HashMap<Integer, Integer>> histRGB){
 	
 		String file ="";
 		
-		for(String k : hist.keySet()){
-			file+=  "," + hist.getOrDefault(k, 0);
+		for (HashMap<Integer, Integer> hist : histRGB) {
+			for(int k : hist.keySet()){
+				file += "," + hist.getOrDefault(k, 0);
+			}
+			
 		}
+		
 		return file ;	
 	}
 	//Retorna Array de Arquivos
@@ -96,7 +127,9 @@ public class ARFF {
 		
 		for (int j = listaImagem.length; i < j; i++) {
 			arquivos = listaImagem[i];
-			 temporaria.add(arquivos.getName());	
+			if(arquivos.isFile() && arquivos.getName().contains(".jpg")){
+			 temporaria.add(arquivos.getName());
+			}
 		}
 		return temporaria;
 	}
