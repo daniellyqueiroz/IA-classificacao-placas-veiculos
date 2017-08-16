@@ -122,60 +122,41 @@ public class KNN{
 		return classe;
 	}
 	
-	public static int distancias(List<Imagem> imagens, double[] ent){
+	public static int distancias(List<Imagem> imagens, double[] ent, int k) throws IOException{
 		double dist = 0;
-		List<Double> distancias = new ArrayList<Double>();
-		List<Double> melhorDist = new ArrayList<Double>();
-		TreeSet<Double> set = new TreeSet<>();
+		List<Imagem2> knn = new ArrayList<Imagem2>();
 		
-		List<Integer> classes = new ArrayList<Integer>();
-		int index = 0;
 		int cont1 = 0;
-		int cont2= 0;
-		
+		int cont2 = 0;
+	
 		
 		for(Imagem lista: imagens){
-			dist = distManhattan(lista.dist, ent);			
-			distancias.add(dist);
-			classes.add(lista.classe);
-			set.addAll(distancias);
-			melhorDist.addAll(distancias);
-			//Collections.sort(melhorDist);
-			//System.out.println(melhorDist);
+			Imagem2 im = new Imagem2();
+			dist = distManhattan(lista.dist, ent);	
+			im.setDist(dist);
+			im.setClasse(lista.classe);
+			knn.add(im);
+			Collections.sort(knn);
 			
-			System.err.println(set);
-			System.err.println(distancias+ "\n");
-			for(int i = 0; i < distancias.size(); i++){
-				//Meu problema está aqui!!!!
-				if(set.contains(distancias.get(i))){
-					System.out.println(distancias.size());
-					index = distancias.indexOf(i);
-					if(index == classes.indexOf(i)){
-					//System.out.println(classes);
-						if(classes.contains(0)){
-							//System.out.println(classes);
-							cont1++;
-							//System.out.println(cont1);
-							
-						}else if(classes.contains(1)){
-							cont2++;
-							//System.err.println(cont2);
-					}
-				}
-					
-			}
-				
+	
+			//System.err.println(knn);
+			
+	}	
+	knn = knn.subList(0, k);
+	for(int i = 0; i < knn.size(); i++){
+		if(knn.get(i).classe == 1){
+			cont1++;
+		}else if(knn.get(i).classe == 0){
+			cont2++;
 		}
-	}				
-				
-	//Collections.sort(set);
-	//System.out.println(melhorDist+ "\n");
-	//System.err.println(melhorDist);
-	if(cont1 < cont2)
+	
+	}
+	//System.err.println(knn);
+	if(cont1 > cont2)
 		return 1;
-	else 
+	else 		
 		return 0;
-			
+
 }
 	
 	
@@ -185,13 +166,9 @@ public class KNN{
 		
 		int qtdClasseCerta = 0;		
 		for(Imagem imagens:conjunto) {
-			//System.out.println(distancias(conjunto, imagens.dist));
-			//for(int i = 0; i < conjunto.size(); i++){
-				if(distancias(conjunto, imagens.dist) == imagens.classe){
+				if(distancias(conjunto, imagens.dist,1) == imagens.classe){
 					qtdClasseCerta++;
-				}
-			//}
-									
+				}									
 							
 		}
 		
@@ -202,6 +179,41 @@ public class KNN{
 	static class Imagem{
 		int classe;
 		double dist[];
+		
+		
+	}
+	static class Imagem2 implements Comparable<Imagem2>{
+		int classe;
+		double dist;
+		
+		public int getClasse() {
+			return classe;
+		}
+		public void setClasse(int classe) {
+			this.classe = classe;
+		}
+		public double getDist() {
+			return dist;
+		}
+		public void setDist(double dist) {
+			this.dist = dist;
+		}
+		
+		public int compareTo(Imagem2 imagem) {
+		     if (this.dist < imagem.getDist()) {
+		          return -1;
+		     }
+		     if (this.dist > imagem.getDist()) {
+		          return 1;
+		     }
+		     return 0;
+		}
+		@Override
+		public String toString() {
+			return "Imagem2 [classe=" + classe + ", dist=" + dist + "]";
+		}
+		
+		
 	}
 		
 	
@@ -209,4 +221,6 @@ public class KNN{
 		classificacao();		
 		
 	}
+
+	
 }
