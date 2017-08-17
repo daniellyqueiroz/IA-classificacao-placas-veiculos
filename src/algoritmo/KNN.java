@@ -91,7 +91,7 @@ public class KNN{
 		
 		for(Imagem lista: imagens){
 			Imagem2 im = new Imagem2();
-			dist = distEuclidianaPonderada(lista.dist, ent);
+			dist = distManhattan(lista.dist, ent);
 			im.setDist(dist);
 			im.setClasse(lista.classe);
 			knn.add(im);
@@ -121,13 +121,13 @@ public class KNN{
 		List<Imagem> Teste = LeArq("classificacaoDePlacas-Teste.arff");
 		
 		int qtdClasseCerta = 0;		
-		for(Imagem imagens:Treinamento) {
-				if(distancias(Teste, imagens.dist,15) == imagens.classe){
+		for(Imagem imagens:Teste) {
+				if(distancias(Treinamento, imagens.dist,15) == imagens.classe){
 					qtdClasseCerta++;
 				}									
 							
 		}
-		System.err.println("Usando k = 15 com Distancia Euclidiana Ponderada: \n");
+		System.err.println("Usando k = 15 com Distancia Manhattan: \n");
 	
 		System.out.println("Quantidade classes certas: " + qtdClasseCerta);
 		System.out.println("Porcentagem de acerto: " + (double)qtdClasseCerta / Treinamento.size() * 100 + "%");
