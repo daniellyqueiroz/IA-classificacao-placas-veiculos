@@ -58,3 +58,22 @@ Quantidade classes certas: 1121
 
 Porcentagem de acerto: 85.1823708206687%
 
+Usando k = 1 com Distancia Euclidiana Ponderada: 
+
+Quantidade classes certas: 1096
+Porcentagem de acerto: 83.28267477203647%
+
+Usando k = 3 com Distancia Euclidiana Ponderada: 
+
+Quantidade classes certas: 1136
+Porcentagem de acerto: 86.32218844984803%
+
+Usando k = 5 com Distancia Euclidiana Ponderada: 
+
+Quantidade classes certas: 1136
+Porcentagem de acerto: 86.32218844984803%
+
+Usando k = 15 com Distancia Euclidiana Ponderada: 
+
+Quantidade classes certas: 1131
+Porcentagem de acerto: 85.94224924012158%

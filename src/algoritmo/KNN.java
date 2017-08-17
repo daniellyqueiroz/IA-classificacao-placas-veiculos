@@ -68,7 +68,17 @@ public class KNN{
 		}
 		return soma;
 	}
-	
+
+	public static double distEuclidianaPonderada(double[]x, double[]y){
+		double w = 0;
+		w = 1 / distEuclidiana(x, y);
+		double soma = 0;
+		for(int i = 0; i < x.length; i++) {
+			soma += ((Math.pow(x[i] - y[i], 2)) * w);
+		}
+		
+		return Math.sqrt(soma);
+	}
 	//Distancia: calculando errado!!!!!!!!
 	public static double distCosseno(double x[],double y[]) { 
 		double soma1 = 0;
@@ -94,7 +104,7 @@ public class KNN{
 		
 		for(Imagem lista: imagens){
 			Imagem2 im = new Imagem2();
-			dist = distCosseno(lista.dist, ent);	
+			dist = distEuclidianaPonderada(lista.dist, ent);
 			im.setDist(dist);
 			im.setClasse(lista.classe);
 			knn.add(im);
@@ -130,7 +140,7 @@ public class KNN{
 				}									
 							
 		}
-		System.err.println("Usando k = 15 com Distancia Cosseno: \n");
+		System.err.println("Usando k = 15 com Distancia Euclidiana Ponderada: \n");
 	
 		System.out.println("Quantidade classes certas: " + qtdClasseCerta);
 		System.out.println("Porcentagem de acerto: " + (double)qtdClasseCerta / Treinamento.size() * 100 + "%");
