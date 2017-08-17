@@ -79,19 +79,6 @@ public class KNN{
 		
 		return Math.sqrt(soma);
 	}
-	//Distancia: calculando errado!!!!!!!!
-	public static double distCosseno(double x[],double y[]) { 
-		double soma1 = 0;
-		double soma2 = 0;
-	 
-	    for (int i = 0; i < x.length; i++) {
-	    		soma1 += (x[i] * y[i]);
-		    	soma2 += (Math.pow(x[i], 2) * Math.pow(y[i], 2));
-	    } 
-	   
-	    
-	    return (soma1/soma2);
-	  } 
 	
 	
 	public static int distancias(List<Imagem> imagens, double[] ent, int k) throws IOException{
