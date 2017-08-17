@@ -1,0 +1,60 @@
+Usando k = 1 com Distancia Euclidiana: 
+Quantidade classes certas: 1106
+
+Porcentagem de acerto: 84.04255319148936%
+
+Usando k = 3 com Distancia Euclidiana: 
+Quantidade classes certas: 1139
+
+Porcentagem de acerto: 86.55015197568389%
+
+Usando k = 5 com Distancia Euclidiana: 
+Quantidade classes certas: 1137
+
+Porcentagem de acerto: 86.39817629179332%
+
+Usando k = 15 com Distancia Euclidiana: 
+
+Quantidade classes certas: 1131
+Porcentagem de acerto: 85.94224924012158%
+
+Usando k = 1 com Distancia Manhattan: 
+Quantidade classes certas: 1141
+
+Porcentagem de acerto: 86.70212765957447%
+
+Usando k = 3 com Distancia Manhattan: 
+Quantidade classes certas: 1148
+
+Porcentagem de acerto: 87.2340425531915%
+
+Usando k = 5 com Distancia Manhattan: 
+
+Quantidade classes certas: 1158
+Porcentagem de acerto: 87.99392097264437%
+
+Usando k = 15 com Distancia Manhattan: 
+Quantidade classes certas: 1147
+
+Porcentagem de acerto: 87.15805471124621%
+
+Usando k = 1 com Distancia Cosseno: 
+
+Quantidade classes certas: 384
+Porcentagem de acerto: 29.17933130699088%
+
+Usando k = 3 com Distancia Cosseno: 
+Quantidade classes certas: 1094
+
+Porcentagem de acerto: 83.1306990881459%
+
+Usando k = 5 com Distancia Cosseno: 
+
+Quantidade classes certas: 1115
+Porcentagem de acerto: 84.72644376899696%
+
+Usando k = 15 com Distancia Cosseno: 
+Quantidade classes certas: 1121
+
+Porcentagem de acerto: 85.1823708206687%
+
