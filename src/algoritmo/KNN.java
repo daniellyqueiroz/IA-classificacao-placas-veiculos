@@ -91,7 +91,7 @@ public class KNN{
 		
 		for(Imagem lista: imagens){
 			Imagem2 im = new Imagem2();
-			dist = distManhattan(lista.dist, ent);
+			dist = distEuclidianaPonderada(lista.dist, ent);
 			im.setDist(dist);
 			im.setClasse(lista.classe);
 			knn.add(im);
@@ -120,17 +120,27 @@ public class KNN{
 		List<Imagem> Treinamento = LeArq("classificacaoDePlacas-Treinamento.arff");
 		List<Imagem> Teste = LeArq("classificacaoDePlacas-Teste.arff");
 		
-		int qtdClasseCerta = 0;		
+		int qtdClasseCerta1 = 0;
+		int qtdClasseCerta0 = 0;
 		for(Imagem imagens:Teste) {
+			if(imagens.classe == 1){
 				if(distancias(Treinamento, imagens.dist,15) == imagens.classe){
-					qtdClasseCerta++;
-				}									
+					qtdClasseCerta1++;
+				}	
+			}
+			else if(imagens.classe == 0){
+				if(distancias(Treinamento, imagens.dist,15) == imagens.classe){
+					qtdClasseCerta0++;
+				}
+			}
 							
 		}
-		System.err.println("Usando k = 15 com Distancia Manhattan: \n");
+		System.err.println("Usando k = 15 com Distancia Euclidiana Ponderada: \n");
 	
-		System.out.println("Quantidade classes certas: " + qtdClasseCerta);
-		System.out.println("Porcentagem de acerto: " + (double)qtdClasseCerta / Treinamento.size() * 100 + "%");
+		System.out.println("Quantidade classes certas - Placas: " + qtdClasseCerta1);
+		System.out.println("Quantidade classes certas - Nao Placas: " + qtdClasseCerta0);
+		System.out.println("Porcentagem de acerto - Placas: " + (double)qtdClasseCerta1 / Teste.size() * 100 + "%");
+		System.out.println("Porcentagem de acerto - Nao Placas: " + (double)qtdClasseCerta0 / Teste.size() * 100 + "%");
 		
 	}
 	
