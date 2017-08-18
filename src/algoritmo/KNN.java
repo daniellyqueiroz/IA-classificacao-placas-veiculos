@@ -71,11 +71,11 @@ public class KNN{
 
 	public static double distEuclidianaPonderada(double[]x, double[]y){
 		double w = 0;
-		w = 1 / distEuclidiana(x, y);
 		double soma = 0;
 		for(int i = 0; i < x.length; i++) {
-			soma += ((Math.pow(x[i] - y[i], 2)) * w);
-		}
+			w = 1 - (x[i] - y[i]);
+			soma += ((Math.pow(x[i] - y[i], 2)) * w);			
+		}	
 		
 		return Math.sqrt(soma);
 	}
@@ -92,6 +92,7 @@ public class KNN{
 		for(Imagem lista: imagens){
 			Imagem2 im = new Imagem2();
 			dist = distEuclidianaPonderada(lista.dist, ent);
+			System.out.println(dist);
 			im.setDist(dist);
 			im.setClasse(lista.classe);
 			knn.add(im);
@@ -117,29 +118,30 @@ public class KNN{
 	
 	
 	public static void classificacao() throws IOException{
-		List<Imagem> Treinamento = LeArq("classificacaoDePlacas-Treinamento.arff");
-		List<Imagem> Teste = LeArq("classificacaoDePlacas-Teste.arff");
+		List<Imagem> Treinamento = LeArq("classificacaoDePlacas-Treinamento2.arff");
+		List<Imagem> Teste = LeArq("classificacaoDePlacas-0-455.arff");
 		
 		int qtdClasseCerta1 = 0;
 		int qtdClasseCerta0 = 0;
 		for(Imagem imagens:Teste) {
-			if(imagens.classe == 1){
-				if(distancias(Treinamento, imagens.dist,15) == imagens.classe){
+			//if(imagens.classe == 1){
+				if(distancias(Teste, imagens.dist,1) == imagens.classe){
 					qtdClasseCerta1++;
-				}	
+			//	}	
 			}
-			else if(imagens.classe == 0){
-				if(distancias(Treinamento, imagens.dist,15) == imagens.classe){
-					qtdClasseCerta0++;
-				}
-			}
+			
+			//else if(imagens.classe == 0){
+			//	if(distancias(Treinamento, imagens.dist,1) == imagens.classe){
+			//		qtdClasseCerta0++;
+				//}
+			//}
 							
 		}
 		System.err.println("Usando k = 15 com Distancia Euclidiana Ponderada: \n");
-	
+		//Calculando taxa de acerto para placas e não placas
 		System.out.println("Quantidade classes certas - Placas: " + qtdClasseCerta1);
 		System.out.println("Quantidade classes certas - Nao Placas: " + qtdClasseCerta0);
-		System.out.println("Porcentagem de acerto - Placas: " + (double)qtdClasseCerta1 / Teste.size() * 100 + "%");
+		System.out.println("Porcentagem de acerto: " + (double)qtdClasseCerta1 / Teste.size() * 100 + "%");
 		System.out.println("Porcentagem de acerto - Nao Placas: " + (double)qtdClasseCerta0 / Teste.size() * 100 + "%");
 		
 	}

@@ -146,31 +146,31 @@ Porcentagem de acerto - Nao Placas: 85.12898330804249%
 
 
 Usando k = 1 com Distancia Euclidiana Ponderada: 
-Quantidade classes certas - Placas: 33
+Quantidade classes certas - Placas: 10
+Quantidade classes certas - Nao Placas: 463
 
-Quantidade classes certas - Nao Placas: 532
-Porcentagem de acerto - Placas: 5.007587253414264%
-Porcentagem de acerto - Nao Placas: 80.72837632776935%
+Porcentagem de acerto: 1.5174506828528074%
+Porcentagem de acerto - Nao Placas: 70.25796661608497%
 
 Usando k = 3 com Distancia Euclidiana Ponderada: 
 
-Quantidade classes certas - Placas: 23
-Quantidade classes certas - Nao Placas: 551
-Porcentagem de acerto - Placas: 3.490136570561457%
-Porcentagem de acerto - Nao Placas: 83.61153262518968%
+Quantidade classes certas - Placas: 3
+Quantidade classes certas - Nao Placas: 489
+Porcentagem de acerto: 0.4552352048558422%
+Porcentagem de acerto - Nao Placas: 74.20333839150227%
 
 
 Usando k = 5 com Distancia Euclidiana Ponderada: 
-Quantidade classes certas - Placas: 20
-Quantidade classes certas - Nao Placas: 556
 
-Porcentagem de acerto - Placas: 3.0349013657056148%
-Porcentagem de acerto - Nao Placas: 84.37025796661608%
+Quantidade classes certas - Placas: 3
+Quantidade classes certas - Nao Placas: 493
+Porcentagem de acerto: 0.4552352048558422%
+Porcentagem de acerto - Nao Placas: 74.81031866464339%
 
 Usando k = 15 com Distancia Euclidiana Ponderada: 
 
-Quantidade classes certas - Placas: 8
-Quantidade classes certas - Nao Placas: 561
-Porcentagem de acerto - Placas: 1.2139605462822458%
-Porcentagem de acerto - Nao Placas: 85.12898330804249%
+Quantidade classes certas - Placas: 1
+Quantidade classes certas - Nao Placas: 476
+Porcentagem de acerto: 0.15174506828528073%
+Porcentagem de acerto - Nao Placas: 72.23065250379362%
 

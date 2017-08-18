@@ -61,25 +61,31 @@ Usando k = 15 com Distancia Manhattan:
 Quantidade classes certas: 569
 Porcentagem de acerto: 85.56390977443608%
 
+
+
+Novos testes
+
+
+
 Usando k = 1 com Distancia Euclidiana Ponderada: 
 
-Quantidade classes certas: 565
-Porcentagem de acerto: 85.73596358118361%
+Quantidade classes certas: 473
+Porcentagem de acerto: 71.77541729893778%
 
 Usando k = 3 com Distancia Euclidiana Ponderada: 
-Quantidade classes certas: 574
 
-Porcentagem de acerto: 87.10166919575114%
+Quantidade classes certas: 492
+Porcentagem de acerto: 74.65857359635811%
 
 Usando k = 5 com Distancia Euclidiana Ponderada: 
-Quantidade classes certas: 576
 
-Porcentagem de acerto: 87.4051593323217%
+Quantidade classes certas: 496
+Porcentagem de acerto: 75.26555386949924%
 
 Usando k = 15 com Distancia Euclidiana Ponderada: 
-Quantidade classes certas: 569
 
-Porcentagem de acerto: 86.34294385432474%
+Quantidade classes certas: 477
+Porcentagem de acerto: 72.3823975720789%
 
 Usando k = 1 com Distancia Euclidiana: 
 
